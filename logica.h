@@ -1,7 +1,6 @@
 #ifndef ENTRADASAIDA_H
 #define ENTRADASAIDA_H
 
-
 #define A 1
 #define A# 2
 #define Bb 2
