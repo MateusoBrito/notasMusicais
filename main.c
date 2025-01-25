@@ -11,6 +11,7 @@ int main(int argc, char *argv[]){
     int algoritmo = atoi(argv[2]);
 
     //printf("%s, %d\n", argv[1], algoritmo);
+    printf("teste\n");
 
     return 0;
 }
