@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "logica.h"
 #include "entradaSaida.h"
 
@@ -33,27 +34,40 @@ void forcaBruta(int *Texto, int n, int *Padrao, int m){
     return;
 }
 
+#define MAX 12
+
 int shiftAnd(int *Texto, int n, int *Padrao, int m){
-    unsigned long long mascara[256] = {0};
+    int *mascara = (int*)malloc((MAX+1)*sizeof(int));
 
     if(mascara == NULL){
         return 0;
     }
-
-    for (int j = 0; j < m; j++) {
-        mascara[Padrao[j]] |= (1ULL << j); // Atualiza o bit correspondente à posição j no padrão
+    
+    for(int i=0;i<MAX+1;i++)
+        mascara[i] = 0;
+    
+    //constroi a mascara de bits para cada caractere do padrap
+    for(int i=0;i<m;i++){
+        mascara[Padrao[i]] |=  (1 << (m - 1 - i));
     }
 
-
-    printf("Máscaras criadas:\n");
-    for (int c = 0; c < 256; c++) {
-        if (mascara[c] != 0) { // Apenas exibe as máscaras relevantes
-            printf("mascara[%d] = ", c);
-            for (int i = m - 1; i >= 0; i--) { // Mostra em binário
-                printf("%d", (mascara[c] & (1ULL << i)) ? 1 : 0);
-            }
+    for(int i=0; i<MAX; i++){
+        if(mascara[i]!=0){
+            printf("mascara[%d] = %d", i, mascara[i]);
             printf("\n");
         }
     }
+
+    unsigned int R = 0;
+
+    for(int i=0;i<n;i++){
+        R = ((R>>1) | (1 << (m-1))) & mascara[Texto[i]];
+        if(R==1){
+            printf("casamento encontrado na pos %d\n", i-m+1);
+        }
+    }
+
+    free(mascara);
+
     return 1;
 }
