@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "entradaSaida.h"
+#include "logica.h"
 
 int main(int argc, char *argv[]){
     if(argc != 3){
@@ -18,16 +19,18 @@ int main(int argc, char *argv[]){
         int *musica = leituraEntrada(f, &M);
         int *trecho = leituraEntrada(f, &T);
 
-        for(int i = 0; i < M; i++){
-            printf("%d ", musica[i]);
-        }
+        //for(int i = 0; i < M; i++){
+        //    printf("%d ", musica[i]);
+        //}
         printf("\n");
 
-        for(int i = 0; i < T; i++){
-            printf("%d ", trecho[i]);
-        }
-        printf("\n");
+        //for(int i = 0; i < T; i++){
+        //    printf("%d ", trecho[i]);
+        //}
+        //printf("\n");
 
+        //forcaBruta(musica,M,trecho,T);   
+        shiftAnd(musica,M, trecho,T);
 
         free(musica);
         free(trecho);

@@ -7,7 +7,7 @@ C D
 12 2
 C Db D Eb E F Gb G Ab A Bb B
 C D
-4 3
-C E G Bb
+13 3
+C E G Bb C Db D Eb E Ab D F# A
 D F# A
 0 0
