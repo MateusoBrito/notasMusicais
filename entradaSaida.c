@@ -14,6 +14,7 @@ int *leituraEntrada(FILE *arquivo, int *tamanho){
         else if (strcmp(nota, "A#") == 0) notas[i] = As;
         else if (strcmp(nota, "Bb") == 0) notas[i] = Bb;
         else if (strcmp(nota, "B") == 0) notas[i] = B;
+        else if (strcmp(nota, "B#") == 0) notas[i] = Bs;
         else if (strcmp(nota, "Cb") == 0) notas[i] = Cb;
         else if (strcmp(nota, "C") == 0) notas[i] = C;
         else if (strcmp(nota, "C#") == 0) notas[i] = Cs;
@@ -22,6 +23,7 @@ int *leituraEntrada(FILE *arquivo, int *tamanho){
         else if (strcmp(nota, "D#") == 0) notas[i] = Ds;
         else if (strcmp(nota, "Eb") == 0) notas[i] = Eb;
         else if (strcmp(nota, "E") == 0) notas[i] = E;
+        else if (strcmp(nota, "Es") == 0) notas[i] = Es;
         else if (strcmp(nota, "Fb") == 0) notas[i] = Fb;
         else if (strcmp(nota, "F") == 0) notas[i] = F;
         else if (strcmp(nota, "F#") == 0) notas[i] = Fs;
