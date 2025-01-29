@@ -20,8 +20,15 @@ int main(int argc, char *argv[]){
         int *padrao = leituraEntrada(f, &T);
         //shiftAnd(musica,M, trecho,T);
         int resultado = buscaKMP(texto, M, padrao, T);
+        int resultado2 = BMH(texto, M, padrao, T);
         if(resultado != -1){
             printf("S %d\n", resultado);
+        }
+        else{
+            printf("N\n");
+        }
+        if(resultado2 != -1){
+            printf("S %d\n", resultado2);
         }
         else{
             printf("N\n");

@@ -129,3 +129,53 @@ int buscaKMP(int *texto, int n, int *padrao, int m){
     free(tabelaLPS);
     return -1; // Padrão não encontrado
 }
+
+#define MAXTAMALFABETO 256
+
+int BMH(int *texto, int n, int *padrao, int m){
+    if(m <= 1 || n < m) return -1;
+
+    int tamTexto = n-1;
+    int tamPadrao = m-1;
+
+    int *intervalosTexto = (int*)malloc(sizeof(int) * tamTexto);
+    int *intervalosPadrao = (int*)malloc(sizeof(int) * tamPadrao);
+    if (!intervalosTexto || !intervalosPadrao) return -1;
+
+    converterParaIntervalos(texto, n, intervalosTexto);
+    converterParaIntervalos(padrao, m, intervalosPadrao);
+
+    int i, j, k;
+    int d[MAXTAMALFABETO];
+
+    for(j=0; j<MAXTAMALFABETO; j++){
+        d[j] = tamPadrao; // inicia todos os deslocamentos como m
+    }
+
+    for(j=0; j<tamPadrao-1; j++){
+        d[intervalosPadrao[j]] = tamPadrao-1-j;
+    }
+
+    i = tamPadrao-1;
+    while(i<tamTexto){
+        k = i;
+        j = tamPadrao-1;
+        while(k>=0 && intervalosTexto[k] == intervalosPadrao[j] && j>=0){
+            k--;
+            j--;
+        }
+        if(j<0){
+            free(intervalosPadrao);
+            free(intervalosTexto);
+            return k+1; //casamento encontrado
+        }
+        if(intervalosTexto[i] < MAXTAMALFABETO) {
+            i += d[intervalosTexto[i]];
+        }else{
+            i += tamPadrao;
+        }
+    }
+    free(intervalosPadrao);
+    free(intervalosTexto);
+    return -1; //casamento nao encontrado
+}
