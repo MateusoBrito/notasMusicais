@@ -43,36 +43,50 @@ void forcaBruta(int *Texto, int n, int *Padrao, int m){
 #define MAX 12
 
 int shiftAnd(int *Texto, int n, int *Padrao, int m){
-    int *mascara = (int*)malloc((MAX+1)*sizeof(int));
+    int *intervalosTexto = (int*)malloc(sizeof(int) * (n - 1));
+    int *intervalosPadrao = (int*)malloc(sizeof(int) * (m - 1));
+    if (!intervalosTexto || !intervalosPadrao) return -1; 
 
-    if(mascara == NULL){
-        return 0;
-    }
+    converterParaIntervalos(Texto, n, intervalosTexto);
+    converterParaIntervalos(Padrao, m, intervalosPadrao);
+
+    int *mascara = (int*)malloc((MAX)*sizeof(int));
+
+    if(mascara == NULL) return 0;
     
-    for(int i=0;i<MAX+1;i++)
+
+    for(int i=0;i<MAX;i++)
         mascara[i] = 0;
     
-    //constroi a mascara de bits para cada caractere do padrap
-    for(int i=0;i<m;i++){
-        mascara[Padrao[i]] |=  (1 << (m - 1 - i));
-    }
+    //m-1 no for pois agora a comparação é sobre os intervalos
+    //(1 << (m - 2 - i)) = 1(onde vao colocar o 1) << ((m-1 dos intervalos) - 1 - i são os zeros)
+    for(int i=0;i<m-1;i++)
+        mascara[intervalosPadrao[i]-1] |=  (1 << (m - 2 - i));
+    
 
-    for(int i=0; i<MAX; i++){
+    /*
+    for (int i = 0; i < MAX; i++) {
         if(mascara[i]!=0){
-            printf("mascara[%d] = %d", i, mascara[i]);
+            printf("mascara[%d]: ", i);
+            for (int bit = m-2; bit >= 0; bit--) {
+                printf("%d", (mascara[i] >> bit) & 1);
+            }
             printf("\n");
         }
     }
+    */
 
     unsigned int R = 0;
 
-    for(int i=0;i<n;i++){
-        R = ((R>>1) | (1 << (m-1))) & mascara[Texto[i]];
+    for(int i=0;i<n-1;i++){
+        R = ((R>>1) | (1 << (m-2))) & mascara[intervalosTexto[i]-1];
         if(R==1){
-            printf("casamento encontrado na pos %d\n", i-m+1);
+            printf("casamento encontrado na pos %d\n", i-m+2);
         }
     }
 
+    free(intervalosPadrao);
+    free(intervalosTexto);
     free(mascara);
 
     return 1;

@@ -18,7 +18,9 @@ int main(int argc, char *argv[]){
     while(fscanf(f, "%d %d", &M, &T) == 2 && (M != 0 && T != 0)){
         int *texto = leituraEntrada(f, &M);
         int *padrao = leituraEntrada(f, &T);
-        //shiftAnd(musica,M, trecho,T);
+        
+        shiftAnd(texto,M, padrao,T);
+        
         int resultado = buscaKMP(texto, M, padrao, T);
         int resultado2 = BMH(texto, M, padrao, T);
         if(resultado != -1){
@@ -33,6 +35,7 @@ int main(int argc, char *argv[]){
         else{
             printf("N\n");
         }
+        
         
         free(texto);
         free(padrao);
