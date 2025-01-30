@@ -18,7 +18,7 @@ void converterParaIntervalos(int *texto, int n, int *intervalos){
     }
 }
 
-void forcaBruta(int *Texto, int n, int *Padrao, int m){
+int forcaBruta(int *Texto, int n, int *Padrao, int m){
     int i,j,k = 0;
     
     for(i=0; i<n-m+1; i++){
@@ -33,11 +33,11 @@ void forcaBruta(int *Texto, int n, int *Padrao, int m){
         }
 
         if(j==m){
-            printf("Casamento na posicao: %d", i);
+            return i;
         }
     }
 
-    return;
+    return -1;
 }
 
 #define MAX 12

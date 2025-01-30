@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]){
     if(argc != 3){
-        printf("Use ./tp3 <entrada.txt> <algoritmo>\n");
+        printf("Use ./tp3 entrada.txt numero_do_algoritmo\n");
         return 0;
     }
 
@@ -18,24 +18,32 @@ int main(int argc, char *argv[]){
     while(fscanf(f, "%d %d", &M, &T) == 2 && (M != 0 && T != 0)){
         int *texto = leituraEntrada(f, &M);
         int *padrao = leituraEntrada(f, &T);
+        int resultado;
+
+        switch(algoritmo){
+            case 1:
+                resultado = forcaBruta(texto, M, padrao, T);
+                break;
+            case 2:
+                resultado = buscaKMP(texto, M, padrao, T);
+                break;
+            case 3:
+                resultado = BMH(texto, M, padrao, T);
+                break;
+            case 4:
+                shiftAnd(texto, M, padrao, T);
+                break;
+            default:
+                printf("Algoritmo invalido. Escolha entre 1 e 4.\n");
+                break;
+        }
         
-        shiftAnd(texto,M, padrao,T);
-        
-        int resultado = buscaKMP(texto, M, padrao, T);
-        int resultado2 = BMH(texto, M, padrao, T);
         if(resultado != -1){
-            printf("S %d\n", resultado);
+           printf("S %d\n", resultado);
         }
         else{
             printf("N\n");
         }
-        if(resultado2 != -1){
-            printf("S %d\n", resultado2);
-        }
-        else{
-            printf("N\n");
-        }
-        
         
         free(texto);
         free(padrao);

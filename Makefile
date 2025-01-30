@@ -22,4 +22,4 @@ clean:
 	rm -rf *.o $(EXEC)
 
 run: all
-	./$(EXEC) entrada.txt 1
+	./$(EXEC) entrada.txt 4
