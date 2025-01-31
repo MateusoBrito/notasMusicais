@@ -40,6 +40,16 @@ int forcaBruta(int *Texto, int n, int *Padrao, int m){
     return -1;
 }
 
+int cortaTexto(int *Texto, int n, int *TextoCortado){
+    if(n>sizeof(int)){
+        for(int i=0; i<sizeof(int);i++)
+            TextoCortado[i] = Texto;
+        return 1;
+    }
+    return 0;
+}
+
+
 #define MAX 12
 
 int shiftAnd(int *Texto, int n, int *Padrao, int m){
@@ -52,7 +62,11 @@ int shiftAnd(int *Texto, int n, int *Padrao, int m){
 
     int *mascara = (int*)malloc((MAX)*sizeof(int));
 
-    if(mascara == NULL) return 0;
+    if(mascara == NULL) {
+        free(intervalosPadrao);
+        free(intervalosTexto);
+        return -1;
+    }
     
 
     for(int i=0;i<MAX;i++)
@@ -64,7 +78,7 @@ int shiftAnd(int *Texto, int n, int *Padrao, int m){
         mascara[intervalosPadrao[i]-1] |=  (1 << (m - 2 - i));
     
 
-    /*
+    
     for (int i = 0; i < MAX; i++) {
         if(mascara[i]!=0){
             printf("mascara[%d]: ", i);
@@ -74,22 +88,22 @@ int shiftAnd(int *Texto, int n, int *Padrao, int m){
             printf("\n");
         }
     }
-    */
-
+    
     unsigned int R = 0;
+    int resultado = -1;
 
     for(int i=0;i<n-1;i++){
         R = ((R>>1) | (1 << (m-2))) & mascara[intervalosTexto[i]-1];
         if(R==1){
-            printf("casamento encontrado na pos %d\n", i-m+2);
+            resultado = i-m+2; 
         }
     }
 
     free(intervalosPadrao);
     free(intervalosTexto);
-    free(mascara);
+    //free(mascara);
 
-    return 1;
+    return resultado;
 }
 
 int *funcaoPrefixoKMP(int *padrao, int m){

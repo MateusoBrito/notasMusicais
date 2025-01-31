@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
                 resultado = BMH(texto, M, padrao, T);
                 break;
             case 4:
-                shiftAnd(texto, M, padrao, T);
+                resultado = shiftAnd(texto, M, padrao, T);
                 break;
             default:
                 printf("Algoritmo invalido. Escolha entre 1 e 4.\n");
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
         }
         
         if(resultado != -1){
-           printf("S %d\n", resultado);
+           printf("S\n", resultado);
         }
         else{
             printf("N\n");
